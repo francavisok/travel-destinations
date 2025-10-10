@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { useParams } from "react-router";
 import "./App.css";
 import { Badge } from "./components/ui/badge";
 
 function App() {
-  const [count, setCount] = useState(0);
   //TODO: get the id from the url and render the destination if id is not null
   const { id } = useParams<{ id: string }>();
   console.log("id", id);
