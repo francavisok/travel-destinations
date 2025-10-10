@@ -1,13 +1,24 @@
-import { useParams } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.css";
-import { Badge } from "./components/ui/badge";
+import { HomePage } from "./pages/Home";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 function App() {
-  //TODO: get the id from the url and render the destination if id is not null
-  const { id } = useParams<{ id: string }>();
-  console.log("id", id);
+  const queryClient = new QueryClient();
+
   return (
-    <Badge variant="default">Testing shadcn</Badge>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/destination/:id" element={<HomePage />} />
+          <Route path="*" element={<p>Not found 404</p>} />
+          {/* TODO: add a 404 page */}
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 
