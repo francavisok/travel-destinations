@@ -1,11 +1,14 @@
 import { useState } from "react";
+import "./App.css";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
-import "./App.css";
+import { useParams } from "react-router";
 
 function App() {
   const [count, setCount] = useState(0);
-
+  //TODO: get the id from the url and render the destination if id is not null
+  const { id } = useParams<{ id: string }>();
+  console.log("id", id);
   return (
     <>
       <div>
