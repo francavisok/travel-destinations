@@ -81,31 +81,26 @@ It integrates a carefully chosen set of tools and libraries to streamline develo
 ---
 
 ## Project Structure
-src/
-├── assets/ # Static assets (e.g., SVGs, images)
-│
-├── components/ # Reusable UI components
-│ ├── custom/ # Project-specific components
-│ └── ui/ # Shared design system components
-│
-├── fake-api/ # Mock API layer 
-│ ├── data/ # Sample JSON
-│ └── fake-api.ts # API simulation logic
-│
-├── hooks/queries/ # Custom hooks for TanStack Query
-│
-├── lib/ # Utility modules (formatters, helpers, constants)
-│
-├── pages/ # Route components
-│
-├── types/ # TypeScript definitions
-│
-├── App.tsx # Root component
-├── main.tsx # React entry point (Vite)
-├── index.css # Global styles
-├── App.css # App-level styles
-└── vite-env.d.ts # Vite + TS environment types
 
+```
+src/
+├── assets/          # Static assets (SVGs, images)
+├── components/      # Reusable UI components
+│   ├── custom/      # Project-specific components
+│   └── ui/          # Shared design system components
+├── fake-api/        # Mock API layer
+│   ├── data/        # Sample JSON
+│   └── fake-api.ts  # API simulation logic
+├── hooks/queries/   # Custom hooks for TanStack Query
+├── lib/             # Utility modules (formatters, helpers, constants)
+├── pages/           # Route components
+├── types/           # TypeScript definitions
+├── App.tsx          # Root component
+├── main.tsx         # React entry point (Vite)
+├── index.css        # Global styles
+├── App.css          # App-level styles
+└── vite-env.d.ts    # Vite + TS environment types
+```
 ---
 
 ## Development Philosophy
