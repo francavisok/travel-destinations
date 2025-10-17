@@ -1,37 +1,45 @@
-import { Badge } from "@/components/ui/badge";
+import { DestinationDetails, DestinationSearch, LoadingDots } from "@/components/custom";
 import { useGetDestinationById } from "@/hooks/queries/destinations/useGetDestinationById";
-import { useSearchDestinations } from "@/hooks/queries/destinations/useSearchDestinations";
-import { useParams } from "react-router";
+import { TDestination } from "@/types/destination";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 
 export const HomePage = () => {
   const { id } = useParams<{ id: string }>();
+
   const destination = useGetDestinationById({ destinationId: id });
-  const destinations = useSearchDestinations({ text: "fail" });
 
-  if (destination.isLoading) return <p>Loading...</p>;
+  const [selected, setSelected] = useState<TDestination | null>(null);
+  const [query, setQuery] = useState("");
 
-  if (destination.isError || !destination.data)
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (destination.data) {
+      setSelected(destination.data);
+      setQuery(destination.data.name);
+    }
+  }, [destination.data]);
+
+  useEffect(() => {
+    if (!selected) return;
+    navigate(`/destination/${selected.id}`);
+  }, [selected]);
+
+  if (destination.isLoading) return <LoadingDots />;
+
+  if (destination.isError)
     return <p>Error: {destination?.error?.message}</p>;
 
   return (
     <div>
-      <h1>Destinations</h1>
-      {destinations.isLoading && <p>Loading...</p>}
-      {destinations.isError && <p>Error: {destinations.error.message}</p>}
-      <ul>
-        {destinations.data?.map((d) => (
-          <li key={d.id}>
-            <Badge>{d.name}</Badge>
-          </li>
-        ))}
-      </ul>
-      <h1>{destination.data.name}</h1>
-      <p>{destination.data.description}</p>
-      <p>Country: {destination.data.country}</p>
-      <p>Climate: {destination.data.climate}</p>
-      <p>Currency: {destination.data.currency}</p>
-      <p>Latitude: {destination.data.latitude}</p>
-      <p>Longitude: {destination.data.longitude}</p>
+      <DestinationSearch
+        onSelect={(dest) => setSelected(dest)}
+        query={query}
+        setQuery={setQuery}
+      />
+
+      {selected && <DestinationDetails destination={selected} />}
     </div>
   );
 };
