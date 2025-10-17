@@ -87,29 +87,37 @@ export const ComboBox = <T,>({
           {label}
         </Label>
       )}
-
-      <Input
-        id="combobox-input"
-        type="search"
-        placeholder={placeholder}
-        value={query}
-        onChange={(e) => {
-          onChange(e.target.value);
-          setOpen(true);
-          setHighlightedIndex(-1);
-        }}
-        onKeyDown={handleKeyDown}
-        onBlur={(e) => {
-          // Only close if user didn’t click an option
-          if (!listRef.current?.contains(e.relatedTarget as Node)) {
-            setOpen(false);
-          }
-        }}
-        aria-expanded={open}
-        aria-controls="combobox-list"
-        className="bg-white"
-      />
-
+      <div className="relative w-full">
+        <Input
+          id="combobox-input"
+          placeholder={placeholder}
+          value={query}
+          onChange={(e) => {
+            onChange(e.target.value.trim());
+            setOpen(true);
+            setHighlightedIndex(-1);
+          }}
+          onKeyDown={handleKeyDown}
+          onBlur={(e) => {
+            // Only close if user didn’t click an option
+            if (!listRef.current?.contains(e.relatedTarget as Node)) {
+              setOpen(false);
+            }
+          }}
+          aria-expanded={open}
+          aria-controls="combobox-list"
+          className="bg-white"
+        />
+        {query && (
+          <button
+            type="button"
+            onClick={() => onChange("")}
+            className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer"
+          >
+            ✕
+          </button>
+        )}
+      </div>
       {open && (
         <div className="absolute z-10 mt-2 w-full bg-white border rounded-md shadow-lg max-h-60 overflow-y-auto">
           {loading && <LoadingDots />}
