@@ -3,12 +3,12 @@ import { skipToken, useQuery } from "@tanstack/react-query";
 import { destinationsKeys } from "./destination-key-factory";
 
 export const useSearchDestinations = ({
-  text,
+  query,
 }: {
-  text: string | undefined;
+  query: string;
 }) => {
   return useQuery({
-    queryKey: destinationsKeys.all,
-    queryFn: !!text ? () => searchDestinations(text) : skipToken,
+    queryKey: destinationsKeys.search(query),
+    queryFn: !!query ? () => searchDestinations(query) : skipToken,
   });
 };

@@ -1,8 +1,9 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.css";
 import { HomePage } from "./pages/Home";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { NotFoundPage } from "./pages/NotFound";
 
 function App() {
   const queryClient = new QueryClient();
@@ -14,8 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/destination/:id" element={<HomePage />} />
-          <Route path="*" element={<p>Not found 404</p>} />
-          {/* TODO: add a 404 page */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
