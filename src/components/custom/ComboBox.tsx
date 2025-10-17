@@ -99,7 +99,12 @@ export const ComboBox = <T,>({
           setHighlightedIndex(-1);
         }}
         onKeyDown={handleKeyDown}
-        onBlur={() => setTimeout(() => setOpen(false), 100)}
+        onBlur={(e) => {
+          // Only close if user didn’t click an option
+          if (!listRef.current?.contains(e.relatedTarget as Node)) {
+            setOpen(false);
+          }
+        }}
         aria-expanded={open}
         aria-controls="combobox-list"
         className="bg-white"
