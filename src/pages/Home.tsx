@@ -1,4 +1,8 @@
-import { DestinationDetails, DestinationSearch, LoadingDots } from "@/components/custom";
+import {
+  DestinationDetails,
+  DestinationSearch,
+  LoadingDots,
+} from "@/components/custom";
 import { useGetDestinationById } from "@/hooks/queries/destinations/useGetDestinationById";
 import { TDestination } from "@/types/destination";
 import { useEffect, useState } from "react";
@@ -26,13 +30,14 @@ export const HomePage = () => {
     navigate(`/destination/${selected.id}`);
   }, [selected]);
 
-  if (destination.isLoading) return <LoadingDots />;
-
-  if (destination.isError)
-    return <p>Error: {destination?.error?.message}</p>;
+  if (destination.isError) {
+    navigate("/not-found");
+  }
 
   return (
     <div>
+      {destination.isLoading && !selected && <LoadingDots />}
+
       <DestinationSearch
         onSelect={(dest) => setSelected(dest)}
         query={query}
