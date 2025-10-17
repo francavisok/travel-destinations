@@ -98,11 +98,9 @@ export const ComboBox = <T,>({
             setHighlightedIndex(-1);
           }}
           onKeyDown={handleKeyDown}
-          onBlur={(e) => {
-            // Only close if user didn’t click an option
-            if (!listRef.current?.contains(e.relatedTarget as Node)) {
-              setOpen(false);
-            }
+          onBlur={() => {
+            // Close after a short delay only if no touch interaction
+            setTimeout(() => setOpen(false), 150);
           }}
           aria-expanded={open}
           aria-controls="combobox-list"
@@ -135,7 +133,14 @@ export const ComboBox = <T,>({
                       ? "bg-fuchsia-100 text-fuchsia-800"
                       : "hover:bg-fuchsia-50 hover:text-fuchsia-800"
                   }`}
-                  onClick={() => handleSelect(item)}
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    handleSelect(item);
+                  }}
+                  onTouchStart={(e) => {
+                    e.preventDefault();
+                    handleSelect(item);
+                  }}
                 >
                   {renderOption(item)}
                 </Button>
