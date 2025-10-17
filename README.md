@@ -1,4 +1,4 @@
-# Vite React Starter
+# Travel Destinations
 
 A modern, high-performance React application scaffolded with **Vite**, **TypeScript**, and **Tailwind CSS**, designed for speed, scalability, and developer experience.
 
@@ -6,9 +6,7 @@ A modern, high-performance React application scaffolded with **Vite**, **TypeScr
 
 ## Overview
 
-This project is built to provide a **clean, efficient, and maintainable foundation** for modern React applications.  
-It integrates a carefully chosen set of tools and libraries to streamline development, improve performance, and ensure consistent UI/UX patterns.
-
+Travel Destinations is a web application that allows users to search for and explore travel destinations. The application provides a user-friendly interface for searching for destinations based on various criteria, such as location and name. Users can also view detailed information about each destination, including its climate, currency, and other relevant details. 
 ---
 
 ## Tech Stack
